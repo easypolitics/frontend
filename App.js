@@ -11,12 +11,12 @@ function HomeHeader() {
     return (
         <View style={styles.headerContainer}>
             <Text style={styles.headerText}>On the Floor</Text>
-            <View style={styles.headerFilter}>
+            {/* <View style={styles.headerFilter}>
                 <AntDesign name="filter" color="#a7aaae" size={24} />
             </View>
             <View style={styles.headerSettings}>
                 <Ionicons name="settings-outline" color="#a7aaae" size={24} />
-            </View>
+            </View> */}
         </View>
     );
 }
@@ -113,13 +113,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     headerText: {
+        color: '#a7aaae',
         fontSize: 32,
         flex: 8,
         justifyContent: 'center',
         paddingBottom: 15,
         paddingLeft: 15,
         marginTop: StatusBar.currentHeight || 0,
-        color: '#a7aaae',
     },
     headerFilter: {
         flex: 2,

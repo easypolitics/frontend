@@ -3,9 +3,9 @@ import { View, Text, StyleSheet } from 'react-native';
 import moment from 'moment/moment';
 
 export function Bill(props) {
-    let timestamp = moment(props.item.filtered_date).format('DD MMM');
+    const timestamp = moment(props.item.filtered_date).format('DD MMM');
 
-    const bill_status = (props) => {
+    const billStatus = (props) => {
         if (
             props.item.bill_type == 's' ||
             props.item.bill_type == 'sconres' ||
@@ -16,7 +16,7 @@ export function Bill(props) {
                 case 'vetoed': {
                     return (
                         <Text style={{ color: '#a7aaae' }}>
-                            Senate {'>'} House {'>'} To President {'>'}
+                            Senate {'>'} House {'>'} President {'>'}
                             <Text style={{ color: '#953c51' }}> Vetoed</Text>
                         </Text>
                     );
@@ -24,8 +24,8 @@ export function Bill(props) {
                 case 'enacted': {
                     return (
                         <Text style={{ color: '#a7aaae' }}>
-                            Senate {'>'} House {'>'} To President {'>'}
-                            <Text style={{ color: '#49853e' }}> Became Law</Text>
+                            Senate {'>'} House {'>'} President {'>'}
+                            <Text style={{ color: '#49853e' }}> Law</Text>
                         </Text>
                     );
                 }
@@ -33,8 +33,8 @@ export function Bill(props) {
                     return (
                         <Text style={{ color: '#a7aaae' }}>
                             Senate {'>'} House {'>'}
-                            <Text style={{ color: '#988940' }}> To President</Text>
-                            <Text style={{ color: '#565e66' }}> {'>'} Became Law</Text>
+                            <Text style={{ color: '#988940' }}> President</Text>
+                            <Text style={{ color: '#565e66' }}> {'>'} Law</Text>
                         </Text>
                     );
                 default:
@@ -44,7 +44,7 @@ export function Bill(props) {
                             <Text style={{ color: '#5597af' }}> House</Text>
                             <Text style={{ color: '#565e66' }}>
                                 {' '}
-                                {'>'} To President {'>'} Became Law
+                                {'>'} President {'>'} Law
                             </Text>
                         </Text>
                     );
@@ -54,7 +54,7 @@ export function Bill(props) {
                 case 'vetoed': {
                     return (
                         <Text style={{ color: '#a7aaae' }}>
-                            House {'>'} Senate {'>'} To President {'>'}
+                            House {'>'} Senate {'>'} President {'>'}
                             <Text style={{ color: '#953c51' }}> Vetoed</Text>
                         </Text>
                     );
@@ -62,8 +62,8 @@ export function Bill(props) {
                 case 'enacted': {
                     return (
                         <Text style={{ color: '#a7aaae' }}>
-                            House {'>'} Senate {'>'} To President {'>'}
-                            <Text style={{ color: '#49853e' }}> Became Law</Text>
+                            House {'>'} Senate {'>'} President {'>'}
+                            <Text style={{ color: '#49853e' }}> Law</Text>
                         </Text>
                     );
                 }
@@ -71,8 +71,8 @@ export function Bill(props) {
                     return (
                         <Text style={{ color: '#a7aaae' }}>
                             House {'>'} Senate {'>'}
-                            <Text style={{ color: '#988940' }}> To President</Text>
-                            <Text style={{ color: '#565e66' }}> {'>'} Became Law</Text>
+                            <Text style={{ color: '#988940' }}> President</Text>
+                            <Text style={{ color: '#565e66' }}> {'>'} Law</Text>
                         </Text>
                     );
                 }
@@ -83,10 +83,27 @@ export function Bill(props) {
                             <Text style={{ color: '#735a48' }}> Senate</Text>
                             <Text style={{ color: '#565e66' }}>
                                 {' '}
-                                {'>'} To President {'>'} Became Law
+                                {'>'} President {'>'} Law
                             </Text>
                         </Text>
                     );
+            }
+        }
+    };
+
+    const tabBackground = (props) => {
+        switch (props.item.filtered_type) {
+            case 'vetoed': {
+                return '#953c51';
+            }
+            case 'enacted': {
+                return '#49853e';
+            }
+            case 'senate': {
+                return '#5597af';
+            }
+            default: {
+                return '#735a48';
             }
         }
     };
@@ -101,11 +118,11 @@ export function Bill(props) {
                 </View>
                 <View style={{ flex: 7 }}>
                     <Text style={{ color: '#a7aaae', fontSize: 24 }}>{props.item.number}</Text>
-                    <Text style={{ color: '#a7aaae' }}>{props.item.title}</Text>
-                    <Text style={{ color: '#a7aaae', paddingTop: 15 }}>{bill_status(props)}</Text>
+                    <Text style={{ color: '#a7aaae' }}>{props.item.short_title}</Text>
+                    <Text style={{ color: '#a7aaae', paddingTop: 15 }}>{billStatus(props)}</Text>
                 </View>
             </View>
-            <View style={styles.boxContainer}></View>
+            <View style={[styles.boxContainer, { backgroundColor: tabBackground(props) }]}></View>
         </View>
     );
 }
@@ -117,14 +134,13 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 15,
         borderTopRightRadius: 15,
         flexDirection: 'row',
-        padding: 5,
+        padding: 10,
         marginHorizontal: 15,
     },
     boxContainer: {
-        backgroundColor: '#fff',
         borderBottomLeftRadius: 15,
         borderBottomRightRadius: 15,
-        height: 10,
+        height: 15,
         marginHorizontal: 15,
         width: 75,
     },
