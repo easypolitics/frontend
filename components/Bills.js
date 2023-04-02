@@ -9,7 +9,7 @@ export const Bills = () => {
     const [loadingMore, setLoadingMore] = useState(false);
     const [refreshing, setRefreshing] = useState(false);
     const [exhausted, setExhausted] = useState(false);
-    const [error, setError] = useState(true);
+    const [error, setError] = useState(false);
 
     const fetchBills = async (currentPage) => {
         try {
@@ -17,7 +17,7 @@ export const Bills = () => {
             const json = await response.json();
             return json.results;
         } catch (error) {
-            setError(error);
+            setError(true);
         } finally {
             setLoading(false);
         }
@@ -54,7 +54,9 @@ export const Bills = () => {
 
     const renderFooter = () => {
         if (loadingMore) {
-            return <ActivityIndicator style={styles.footer} size="large" color="#a7aaae" />;
+            return (
+                <ActivityIndicator style={styles.footerContainer} size="large" color="#a7aaae" />
+            );
         }
     };
 
@@ -65,7 +67,7 @@ export const Bills = () => {
     }, []);
 
     return (
-        <View style={styles.container}>
+        <View style={styles.itemContainer}>
             {isLoading ? (
                 <ActivityIndicator size="large" color="#a7aaae" />
             ) : (
@@ -74,14 +76,15 @@ export const Bills = () => {
                         data={bills}
                         keyExtractor={({ bill_id }) => bill_id}
                         renderItem={renderItem}
-                        onEndReachedThreshold={1}
                         refreshControl={
                             <RefreshControl
                                 refreshing={refreshing}
                                 onRefresh={refreshBills}
+                                // iOS
                                 tintColor={'white'}
                             />
                         }
+                        onEndReachedThreshold={0.5}
                         onEndReached={fetchMore}
                         // Android
                         overScrollMode="never"
@@ -96,12 +99,12 @@ export const Bills = () => {
 };
 
 const styles = StyleSheet.create({
-    container: {
+    itemContainer: {
         backgroundColor: '#222932',
         flex: 1,
         justifyContent: 'center',
     },
-    footer: {
-        paddingBottom: 50,
+    footerContainer: {
+        paddingBottom: 75,
     },
 });

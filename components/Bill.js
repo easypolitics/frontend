@@ -110,7 +110,7 @@ export function Bill(props) {
 
     return (
         <View style={{ marginVertical: 15 }}>
-            <View style={styles.container}>
+            <View style={styles.itemContainer}>
                 <View style={{ alignItems: 'center', flex: 2 }}>
                     <Text style={{ color: '#565e66', fontSize: 24, textAlign: 'center' }}>
                         {timestamp}
@@ -128,7 +128,7 @@ export function Bill(props) {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    itemContainer: {
         backgroundColor: '#343e48',
         borderBottomRightRadius: 15,
         borderTopLeftRadius: 15,
