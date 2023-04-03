@@ -1,8 +1,9 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
 import moment from 'moment/moment';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export function Bill(props) {
+    const [expanded, setExpanded] = useState(false);
     const timestamp = moment(props.item.filtered_date).format('DD MMM');
 
     const billStatus = (props) => {
@@ -120,9 +121,27 @@ export function Bill(props) {
                     <Text style={{ color: '#a7aaae', fontSize: 24 }}>{props.item.number}</Text>
                     <Text style={{ color: '#a7aaae' }}>{props.item.short_title}</Text>
                     <Text style={{ color: '#a7aaae', paddingTop: 15 }}>{billStatus(props)}</Text>
+                    {expanded && (
+                        <View>
+                            <Text style={{ color: '#a7aaae', paddingTop: 15, fontSize: 18 }}>
+                                Summary
+                            </Text>
+                            <Text style={{ color: '#a7aaae', paddingTop: 15 }}>
+                                {props.item.title}
+                            </Text>
+                        </View>
+                    )}
                 </View>
             </View>
-            <View style={[styles.boxContainer, { backgroundColor: tabBackground(props) }]}></View>
+            <TouchableOpacity
+                onPress={() => {
+                    setExpanded(!expanded);
+                }}
+            >
+                <View
+                    style={[styles.boxContainer, { backgroundColor: tabBackground(props) }]}
+                ></View>
+            </TouchableOpacity>
         </View>
     );
 }

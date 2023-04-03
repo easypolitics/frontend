@@ -1,8 +1,9 @@
-import * as React from 'react';
-import { Text, View, SafeAreaView, StyleSheet, StatusBar } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import * as React from 'react';
+import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
+
 import { Bills } from './components/Bills';
 import { Following } from './components/Following';
 import { Search } from './components/Search';
