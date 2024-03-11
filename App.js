@@ -1,12 +1,18 @@
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
+import * as Sentry from '@sentry/react-native';
 import * as React from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 
 import { Bills } from './components/Bills';
 import { Following } from './components/Following';
 import { Search } from './components/Search';
+
+// Sentry.init({
+//     dsn: 'https://58a4ef3c56f14554851b6e7a72418792@o4504193675821056.ingest.sentry.io/4504947561594880',
+//     tracesSampleRate: 1.0,
+// });
 
 function HomeHeader() {
     return (
@@ -52,7 +58,7 @@ function FollowingScreen() {
 
 const Tab = createBottomTabNavigator();
 
-export default function App() {
+const App = () => {
     return (
         // iOS
         <SafeAreaView style={{ flex: 1 }}>
@@ -106,7 +112,7 @@ export default function App() {
             </NavigationContainer>
         </SafeAreaView>
     );
-}
+};
 
 const styles = StyleSheet.create({
     headerContainer: {
@@ -133,3 +139,5 @@ const styles = StyleSheet.create({
         paddingTop: 10,
     },
 });
+
+export default Sentry.wrap(App);
